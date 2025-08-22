@@ -4,7 +4,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# interview functions
+# Interview functions
 import utils as interview
 
 load_dotenv()
@@ -342,7 +342,7 @@ if st.session_state.get("finished", False):
         summary = interview.ask_llm(summary_prompt, temperature=0.2)
         summary = summary.replace("Weaknesses:", "\n\nWeaknesses:")
     except Exception as e:
-        summary = f"(Could not generate summary: {e})"
+        summary = f"Could not generate summary: {e}"
 
     st.subheader("Strengths & Weaknesses")
     st.markdown(summary)
