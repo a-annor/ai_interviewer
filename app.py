@@ -7,9 +7,13 @@ from openai import OpenAI
 # Interview functions
 import utils as interview
 
+# ------ Setup -----
 load_dotenv()
 API_KEY = os.getenv("API_KEY", "")
 MODEL = "deepseek/deepseek-r1:free"
+
+print(f"[DEBUG] Model: {MODEL}")
+print(f"[DEBUG] API key loaded: {'Yes' if API_KEY else 'No'}")
 
 st.set_page_config(page_title="AI Interviewer", page_icon="📋", layout="wide")
 st.title("AI Interviewer")

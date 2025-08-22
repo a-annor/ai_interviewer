@@ -4,20 +4,11 @@ import re
 import wikipedia
 from wikipedia.exceptions import DisambiguationError, PageError
 from openai import OpenAI
-from dotenv import load_dotenv
 
-# --------Load API Key and Model -------
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
-MODEL = "deepseek/deepseek-r1:free"
-
-print(f"[DEBUG] Model: {MODEL}")
-print(f"[DEBUG] API key loaded: {'Yes' if API_KEY else 'No'}")
-
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=API_KEY,
-)
+# --------API Key and Model Placeholders-------
+API_KEY = ""
+MODEL = ""
+client = ""
 
 
 # ------- Utilities ---------
