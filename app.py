@@ -156,6 +156,12 @@ else:
         st.session_state.style = style
         st.session_state.awaiting_answer = True
 
+    # Build Wikipedia context
+    try:
+        context = interview.build_wiki_context(topic, st.session_state.question)
+    except Exception as e:
+        context = ""
+
     # Show current question
     st.markdown("#### Question")
     st.write(st.session_state.question)
@@ -185,14 +191,6 @@ else:
                 st.session_state.last_scores = scores
                 st.session_state.awaiting_answer = False
                 st.rerun()
-
-            # For non empty answer build context and grade
-            context = ""
-            try:
-                # Build Wikipedia context
-                context = interview.build_wiki_context(topic, st.session_state.question)
-            except Exception as e:
-                st.warning(f"Wikipedia context unavailable: {e}")
 
             # Ask LLM to grade the answer
             grading_prompt = f"""
@@ -241,8 +239,8 @@ else:
             c, s = int(result.get("correctness", 0)), int(result.get("specificity", 0))
             ev = result.get("evidence", {})
             col1, col2 = st.columns(2)
-            col1.metric("Correctness (0–3)", c)
-            col2.metric("Specificity (0–3)", s)
+            col1.metric("Correctness (0-3)", c)
+            col2.metric("Specificity (0-3)", s)
             if ev:
                 st.caption(f"Evidence: {ev.get('verdict')} - {ev.get('reason')}")
 
@@ -320,14 +318,14 @@ if st.session_state.get("finished", False):
             st.write(f"- Specificity: {s.get('specificity', 0)}")
             if ev:
                 st.caption(f"Evidence: {ev.get('verdict')} - {ev.get('reason')}")
+
     # Show subtopics where weaknesses were detected
     st.subheader("Poor areas")
     if not st.session_state.poor_areas:
         st.write("No persistent issues detected.")
     else:
         for area in st.session_state.poor_areas:
-            with st.expander(f"{area['subtopic']} - {', '.join(area['reasons'])}"):
-                st.json(area)
+            st.write(f"{area['subtopic']} - {', '.join(area['reasons'])}")
 
     # Summary of Strengths and Weaknesses
     full_history = st.session_state.full_history
