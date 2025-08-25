@@ -220,7 +220,7 @@ def ask_question(
                 f"Previous Answer: {prev_a}\n"
                 f"Ask ONE different question that is clear and tests knowledge in the subtopic area.\n"
                 f"It should be checkable and relevant to this subtopic.\n"
-                f"No commentary. Question:"
+                f"Return ONLY the question text, without answers, hints, or commentary. Question:"
             )
 
     print(f"[DEBUG] Question style: {style} ({subtopic})")
