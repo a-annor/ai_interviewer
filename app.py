@@ -33,7 +33,7 @@ st.sidebar.header("Interview Settings")
 user_topic = st.sidebar.text_input("Enter interview topic", key="topic_input")
 
 max_subtopics = st.sidebar.slider(
-    "Max subtopics", 1, 5, 2, help="Number of subtopics to cover."
+    "Max subtopics", 1, 3, 2, help="Number of subtopics to cover."
 )
 
 user_subtopics = [
